@@ -1,6 +1,6 @@
-# Chat Widget Everywhere
+# Chat Widget Anywhere
 
-Embed chat widget into anywhere that runs HTML and JS.
+Embed chat widget into anywhere that runs HTML and JS, with username and password
 
 ## Installation
 
