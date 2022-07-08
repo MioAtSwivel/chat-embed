@@ -60,7 +60,7 @@ function _mountWidget(token) {
   });
 }
 
-import { setup } from "./notification";
+import { setup, unsubscribe } from "./notification";
 
 /**
  * Main widget create function
@@ -72,5 +72,9 @@ export async function createWidget(username, passwordHash) {
   localStorage.setItem('360-accessToken',token)
   _mountWidget(token)
   await setup(token)
+}
+
+export async function stopNotification(){
+  unsubscribe();
 }
 // main();

@@ -1,4 +1,5 @@
 const publicVapidKey = 'BFimg4nhhiga2UkChbE_luhDsQoQL1_82igq9D9--RMSSVVOsCC1kd4Rc6V2vDcq7Bh0feKWxcvpZpY8eBr4Vhg'
+let globalSubscription;
 
 export async function setup(jwtToken) {
   const registration = await registerServiceWorker()
@@ -41,12 +42,14 @@ async function subscribe(registration, jwtToken) {
     applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
   })
 
+  globalSubscription = subscription
+
   const reqHeaders = {
     'content-type': 'application/json',
     Authorization: `Bearer ${jwtToken}`, // subscribe with user token
   }
   const response = await fetch(
-    `https://auth.swivelsoftware.asia/api/notification/subscribe`, // @todo Change to use service call instead
+    `https://auth.swivelsoftware.asia/api/notification/subscribe`,
     {
       method: 'POST',
       body: JSON.stringify(subscription),
@@ -58,4 +61,21 @@ async function subscribe(registration, jwtToken) {
   }
 }
 
-async function unsubscribe()
+export async function unsubscribe() {
+  const jwtToken = localStorage.getItem('360-accessToken')
+  const reqHeaders = {
+    'content-type': 'application/json',
+    Authorization: `Bearer ${jwtToken}`, // subscribe with user token
+  }
+  const response = await fetch(
+    `https://auth.swivelsoftware.asia/api/notification/unsubscribe`,
+    {
+      method: 'POST',
+      body: JSON.stringify(globalSubscription),
+      headers: reqHeaders,
+    }
+  )
+  if (response.ok) {
+    console.dir(response)
+  }
+}
