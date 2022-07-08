@@ -11,7 +11,7 @@ Place a div with id `chat-container` into where you want it to be with
 
 Include a copy of `swivel-chat-widget-min.js` and helper script at the end of html page with
   ```html
-  <script type="text/javascript" src="./swivel-chat-widget.min.js"></script>
+  <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script>
   <script type="text/javascript" src="./create-chat-widget.js"></script>
   <!-- Include additional sha.js if plaintext password is used -->
   <script type="text/javascript" src="./sha.js"></script>
