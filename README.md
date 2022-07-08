@@ -13,6 +13,8 @@ Include a copy of `swivel-chat-widget-min.js` and helper script at the end of ht
   ```html
   <script type="text/javascript" src="./swivel-chat-widget.min.js"></script>
   <script type="text/javascript" src="./create-chat-widget.js"></script>
+  <!-- Include additional sha.js if plaintext password is used -->
+  <script type="text/javascript" src="./sha.js"></script>
   ```
 
 Create additional `<script>` block and run the following
