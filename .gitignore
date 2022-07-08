@@ -1,2 +1,4 @@
 .vscode
 swivel-chat-widget*.js
+node_modules/
+.yarn/cache

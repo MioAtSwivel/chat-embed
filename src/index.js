@@ -1,17 +1,19 @@
+
+
 async function _login(username, passwordHash) {
-  const response = await fetch('https://auth.swivelsoftware.asia/auth/local/login',{
+  const response = await fetch('https://auth.swivelsoftware.asia/auth/local/login', {
     method: 'POST',
-    headers:{
+    headers: {
       'x-system': '360uat',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({username, password: passwordHash, rememberMe: false})
+    body: JSON.stringify({ username, password: passwordHash, rememberMe: false })
   });
   const data = await response.json();
   return data['accessToken']
 }
 
-function _mountWidget(token){
+function _mountWidget(token) {
   const widgetContainer = document.getElementById("chat-container"); // div id
   const widget = document.createElement("swivel-chat-widget");
   widget.setAttribute("id", "swivel-chat-widget");
@@ -63,9 +65,8 @@ function _mountWidget(token){
  * @param {string} username Username (email) of the user
  * @param {string} passwordHash SHA3-256 Hashed password
  */
-async function createWidget(username, passwordHash) {
+export async function createWidget(username, passwordHash) {
   const token = await _login(username, passwordHash)
   _mountWidget(token)
 }
-
 // main();
