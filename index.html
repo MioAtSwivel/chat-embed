@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat widget embed demo</title>
+  </head>
+
+  <body>
+    <p>Chat widget embed demo</p>
+    <p>Currently using 360uat/dev chat server on 196</p>
+    <div id="chat-container"></div>
+    <button onclick="stopNotification()">Stop notification</button>
+  </body>
+
+  <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script>
+  <script type="text/javascript" src="./dist/create-chat-widget.js"></script>
+  <script>
+    // ChatWidget.createWidget("username", "hash") // pass username and password hash to create chat widget
+    ChatWidget.createWidget("mio9+chat109@swivelsoftware.com", 'hash')
+
+    function stopNotification(){
+      ChatWidget.stopNotification()
+    }
+  </script>
+</html>
