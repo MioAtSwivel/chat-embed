@@ -1,5 +1,3 @@
-
-
 async function _login(username, passwordHash) {
   const response = await fetch('https://auth.swivelsoftware.asia/auth/local/login', {
     method: 'POST',
