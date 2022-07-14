@@ -6,7 +6,7 @@ Embed chat widget into anywhere that runs HTML and JS, with username and passwor
 
 This build file when included through `<script>` tags, exposes itself as `ChatWidget` library, with the following 2 functions:
 
-- `createWidget(username: string, password: string)` - Logs in and create the widget
+- `createWidget(username: string, password: string, systemMode: 'uat'|'prod'|'dev')` - Logs in and create the widget
 - `stopNotification()` - Call on logout to stop notifications from chat service
 
 
@@ -21,7 +21,9 @@ Place a div with id `chat-container` into where you want it to be with
 
 Include a copy of `swivel-chat-widget-min.js` and helper script at the end of html page with
   ```html
-  <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script>
+  <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script> <!-- UAT WIDGET-->
+  <!-- <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/dev-v2/widgets/swivel-chat-widget.js"></script> --> <!-- DEV WIDGET -->
+  <!-- <script type="text/javascript" src="https://chat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script> --> <!-- PRODUCTION WIDGET-->
   <script type="text/javascript" src="./create-chat-widget.js"></script>
   <!-- Include additional sha.js if plaintext password is used -->
   <script type="text/javascript" src="./sha.js"></script>
