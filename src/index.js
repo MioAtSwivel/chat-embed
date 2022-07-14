@@ -11,7 +11,7 @@ async function _login(username, passwordHash) {
   return data['accessToken']
 }
 
-function _mountWidget(token) {
+function _mountWidget(token, system) {
   const widgetContainer = document.getElementById("chat-container"); // div id
   const widget = document.createElement("swivel-chat-widget");
   widget.setAttribute("id", "swivel-chat-widget");
@@ -21,7 +21,7 @@ function _mountWidget(token) {
     "token",
     token
   ); // token
-  widget.setAttribute("system", "360uat"); // system
+  widget.setAttribute("system", (['360uat','360dev'].includes(system))? "360uat" : system); // system
   // if (uat) {
   widget.setAttribute("uat", "true");
   // }
@@ -69,7 +69,7 @@ import { setup, unsubscribe } from "./notification";
 export async function createWidget(username, passwordHash, systemMode) {
   const token = await _login(username, passwordHash)
   localStorage.setItem('360-accessToken',token)
-  _mountWidget(token)
+  _mountWidget(token, systemMode)
   await setup(token, systemMode)
 }
 

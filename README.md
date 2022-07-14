@@ -6,7 +6,7 @@ Embed chat widget into anywhere that runs HTML and JS, with username and passwor
 
 This build file when included through `<script>` tags, exposes itself as `ChatWidget` library, with the following 2 functions:
 
-- `createWidget(username: string, password: string, systemMode: 'uat'|'prod'|'dev')` - Logs in and create the widget
+- `createWidget(username: string, password: string, systemMode: '360uat'|'360dev'|[other valid system code])` - Logs in and create the widget
 - `stopNotification()` - Call on logout to stop notifications from chat service
 
 
