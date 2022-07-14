@@ -2,6 +2,16 @@
 
 Embed chat widget into anywhere that runs HTML and JS, with username and password
 
+## Library Functions
+
+This build file when included through `<script>` tags, exposes itself as `ChatWidget` library, with the following 2 functions:
+
+- `createWidget(username: string, password: string)` - Logs in and create the widget
+- `stopNotification()` - Call on logout to stop notifications from chat service
+
+
+
+
 ## Installation
 
 Place a div with id `chat-container` into where you want it to be with
@@ -28,6 +38,9 @@ Create additional `<script>` block and run the following
     createWidget("mio9+chat109@swivelsoftware.com", "6aa3665554665c26fe82ae63f9997eb8b7930f9a6dd943a21ea8ff6da13333ae")
 </script>
 ```
+Place `360-sw.js` into root directory of the site url for notification
+
+
 
 ## Usage Example
 ```html
@@ -57,6 +70,4 @@ Create additional `<script>` block and run the following
     createWidget("mio9+chat109@swivelsoftware.com", "ed46fbf7cbd33c61df4a97fc3c444393f838ecbdd438e34d903f4d0a6854ee39") 
   </script>
 </html>
-
-
 ```

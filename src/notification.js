@@ -1,20 +1,25 @@
+// prod: BFimg4nhhiga2UkChbE_luhDsQoQL1_82igq9D9--RMSSVVOsCC1kd4Rc6V2vDcq7Bh0feKWxcvpZpY8eBr4Vhg
+// dev: BCGCDm1yl8nX1WZbW6t6WtB4_v7mqyAIFPqztZs-pWBucoD9onTjPZdqeqldElN0Yl76nGNKsMAUP6JGXW0tfUg
 const publicVapidKey = 'BFimg4nhhiga2UkChbE_luhDsQoQL1_82igq9D9--RMSSVVOsCC1kd4Rc6V2vDcq7Bh0feKWxcvpZpY8eBr4Vhg'
 let globalSubscription;
 
-export async function setup(jwtToken) {
-  const registration = await registerServiceWorker()
+export async function setup(jwtToken, systemMode) {
+  const registration = await registerServiceWorker(jwtToken, systemMode)
   console.log(registration)
-  if (registration){
+  if (registration) {
     await subscribe(registration, jwtToken)
   }
   console.log('[chat-embed] service worker registered')
 }
 
-async function registerServiceWorker(){
+async function registerServiceWorker(jwtToken, systemMode) {
   if ('serviceWorker' in navigator) {
     // デフォルトのスコープを使用して、
     // サイトのルートでホストされるサービスワーカーを登録します。
     const registration = await navigator.serviceWorker.register('/360-sw.js')
+    navigator.serviceWorker.ready.then(reg => {
+      reg.active.postMessage({token: jwtToken, system: systemMode})
+    })
     return registration
   } else {
     console.log('[chat-embed] No service worker available');

@@ -64,12 +64,13 @@ import { setup, unsubscribe } from "./notification";
  * Main widget create function
  * @param {string} username Username (email) of the user
  * @param {string} passwordHash SHA3-256 Hashed password
+ * @param {string} systemMode 'uat' or 'prod'
  */
-export async function createWidget(username, passwordHash) {
+export async function createWidget(username, passwordHash, systemMode) {
   const token = await _login(username, passwordHash)
   localStorage.setItem('360-accessToken',token)
   _mountWidget(token)
-  await setup(token)
+  await setup(token, systemMode)
 }
 
 export async function stopNotification(){
