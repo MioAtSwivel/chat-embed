@@ -82,3 +82,5 @@ Place `360-sw.js` into root directory of the site url for notification
   </script>
 </html>
 ```
+
+For detailed running example, please reference the `index.html` file inside `public/` and match the use case in your application
