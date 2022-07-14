@@ -14,6 +14,14 @@ self.registration.scope.slice(0, -1)
 
 ## Installation
 
+### Files to prepare
+Prepare/find the following files from the repository:
+- `create-chat-widget.js` from `dist/` folder
+- (optional) `sha.js` from `dist/` folder
+- `360-sw.js` from `public/` folder
+- `index.html` from `public/` folder (for reference usage)
+
+### Steps
 Place a div with id `chat-container` into where you want it to be with
 ```html
 <div id="chat-container"></div>
@@ -34,10 +42,11 @@ Create additional `<script>` block and run the following
 <script>
 /**
  * Main widget create function
- * @param {string} username Username (email) of the user
- * @param {string} passwordHash SHA3-256 Hashed password
+ * @param {string} username - Username (email) of the user
+ * @param {string} passwordHash - SHA3-256 Hashed password
+ * @param {string} system - magic value 'erp' | 'erpuat' | '360uat' | '360dev' | [other valid system code]
  */
-    createWidget("mio9+chat109@swivelsoftware.com", "6aa3665554665c26fe82ae63f9997eb8b7930f9a6dd943a21ea8ff6da13333ae")
+    createWidget("mio9+chat109@swivelsoftware.com", "6aa3665554665c26fe82ae63f9997eb8b7930f9a6dd943a21ea8ff6da13333ae", "erpuat")
 </script>
 ```
 Place `360-sw.js` into root directory of the site url for notification
