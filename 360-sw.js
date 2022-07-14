@@ -23,15 +23,15 @@ self.addEventListener('push', e => {
   })
 })
 self.addEventListener('notificationclick', async (event) => {
-  // const response = await fetch(`${chatUrlMap[system]}chatroom/redirect/${event.notification.data.chatroomId}?origin=${self.registration.scope.slice(0, -1)}`, {
-  //   method: 'GET',
-  //   headers: {
-  //     Authorization: `Bearer ${token}`,
-  //     'x-system': '360-uat'
-  //   }
-  // })
-  // const data = await response.json()
-  const data = {url: 'http://127.0.0.1:5501/?open=chat&primaryKey=6605'}
+  const response = await fetch(`${chatUrlMap[system]}chatroom/redirect/${event.notification.data.chatroomId}?origin=${self.registration.scope.slice(0, -1)}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'x-system': '360-uat'
+    }
+  })
+  const data = await response.json()
+  // const data = {url: 'http://127.0.0.1:5501/?open=chat&primaryKey=6605'}
   console.log(data.url)
   event.waitUntil(clients
     .matchAll({
