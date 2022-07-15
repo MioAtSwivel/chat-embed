@@ -46,7 +46,7 @@ Create additional `<script>` block and run the following
  * @param {string} passwordHash - SHA3-256 Hashed password
  * @param {string} system - magic value 'erp' | 'erpuat' | '360uat' | '360dev' | [other valid system code]
  */
-    createWidget("mio9+chat109@swivelsoftware.com", "6aa3665554665c26fe82ae63f9997eb8b7930f9a6dd943a21ea8ff6da13333ae", "erpuat")
+    ChatWidget.createWidget("mio9+chat109@swivelsoftware.com", "6aa3665554665c26fe82ae63f9997eb8b7930f9a6dd943a21ea8ff6da13333ae", "erpuat")
 </script>
 ```
 Place `360-sw.js` into root directory of the site url for notification
@@ -78,7 +78,7 @@ Place `360-sw.js` into root directory of the site url for notification
 
   <!-- Create the widget -->
   <script>
-    createWidget("mio9+chat109@swivelsoftware.com", "ed46fbf7cbd33c61df4a97fc3c444393f838ecbdd438e34d903f4d0a6854ee39", "erpuat") 
+    ChatWidget.createWidget("mio9+chat109@swivelsoftware.com", "ed46fbf7cbd33c61df4a97fc3c444393f838ecbdd438e34d903f4d0a6854ee39", "erpuat") 
   </script>
 </html>
 ```
