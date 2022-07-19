@@ -1,6 +1,7 @@
 const { application } = require('express');
 const express = require('express');
 const app = express();
+const port = 5600
 
 app.use('/dist',express.static('dist')); 
 
@@ -10,6 +11,6 @@ app.use('/dist',express.static('dist'));
 
 app.use(express.static('public'))
 
-app.listen(5600,()=>{
-  console.log('i done opening')
+app.listen(port,()=>{
+  console.log('i done opening on port '+port)
 })
