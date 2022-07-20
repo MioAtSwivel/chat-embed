@@ -46,7 +46,13 @@ Create additional `<script>` block and run the following
  * @param {string} passwordHash - SHA3-256 Hashed password
  * @param {string} system - magic value 'erp' | 'erpuat' | '360uat' | '360dev' | [other valid system code]
  */
-    ChatWidget.createWidget("mio9+chat109@swivelsoftware.com", "6aa3665554665c26fe82ae63f9997eb8b7930f9a6dd943a21ea8ff6da13333ae", "erpuat")
+    ChatWidget.createWidget({
+      username: "mio9+chat109@swivelsoftware.com",
+      password: "hash",
+      system: "360uat",
+      entityKey: "DEV",
+      entityReferenceKey: "Development Key"
+    })
 </script>
 ```
 Place `360-sw.js` into root directory of the site url for notification
