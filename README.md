@@ -55,7 +55,7 @@ Create additional `<script>` block and run the following
     })
 </script>
 ```
-Place `360-sw.js` into root directory of the site url for notification
+⚠ Place `360-sw.js` into root directory of the site url for notification
 
 
 
