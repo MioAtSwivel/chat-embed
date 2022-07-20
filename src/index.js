@@ -11,7 +11,7 @@ async function _login(username, passwordHash) {
   return data['accessToken']
 }
 
-function _mountWidget(token, system) {
+function _mountWidget(token, system, entityKey, entityReferenceKey) {
   const widgetContainer = document.getElementById("chat-container"); // div id
   const widget = document.createElement("swivel-chat-widget");
   widget.setAttribute("id", "swivel-chat-widget");
@@ -21,7 +21,7 @@ function _mountWidget(token, system) {
     "token",
     token
   ); // token
-  widget.setAttribute("system", (['360uat','360dev'].includes(system))? "360uat" : system); // system
+  widget.setAttribute("system", (['360uat', '360dev'].includes(system)) ? "360uat" : system); // system
   // if (uat) {
   widget.setAttribute("uat", "true");
   // }
@@ -31,13 +31,13 @@ function _mountWidget(token, system) {
       full: false,
       button: true,
       right: false,
-      system: "erpuat",
+      system: (['360uat', '360dev'].includes(system)) ? "360uat" : system,
       entityType: "customer",
-      entityKey: "DEV",
-      entityReferenceKey: "Development Team",
+      entityKey: entityKey, // DEV
+      entityReferenceKey: entityReferenceKey, // Development Team
       hasPublicChatroom: true,
       extraChatrooms: [],
-      maxShowChatroom: 10,
+      maxShowChatroom: 6,
       leftOffset: 0,
       rightOffset: 0,
       // propdata
@@ -66,14 +66,14 @@ import { setup, unsubscribe } from "./notification";
  * @param {string} passwordHash SHA3-256 Hashed password
  * @param {string} systemMode 'uat' or 'prod'
  */
-export async function createWidget(username, passwordHash, systemMode) {
-  const token = await _login(username, passwordHash)
-  localStorage.setItem('360-accessToken',token)
-  _mountWidget(token, systemMode)
-  await setup(token, systemMode)
+export async function createWidget({ username, password, system, entityKey, entityReferenceKey }) {
+  const token = await _login(username, password)
+  localStorage.setItem('360-accessToken', token)
+  _mountWidget(token, system, entityKey, entityReferenceKey)
+  await setup(token, system)
 }
 
-export async function stopNotification(){
+export async function stopNotification() {
   unsubscribe();
 }
 // main();

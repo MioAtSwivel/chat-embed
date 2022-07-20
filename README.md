@@ -78,7 +78,13 @@ Place `360-sw.js` into root directory of the site url for notification
 
   <!-- Create the widget -->
   <script>
-    ChatWidget.createWidget("mio9+chat109@swivelsoftware.com", "ed46fbf7cbd33c61df4a97fc3c444393f838ecbdd438e34d903f4d0a6854ee39", "erpuat") 
+    ChatWidget.createWidget({
+      username: "mio9+chat109@swivelsoftware.com",
+      password: "hash",
+      system: "360uat",
+      entityKey: "DEV",
+      entityReferenceKey: "Development Key"
+    }) 
   </script>
 </html>
 ```
