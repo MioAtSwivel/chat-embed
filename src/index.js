@@ -11,7 +11,7 @@ async function _login(username, passwordHash) {
   return data['accessToken']
 }
 
-function _mountWidget(token, system, entityKey, entityReferenceKey) {
+function _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss) {
   const widgetContainer = document.getElementById("chat-container"); // div id
   const widget = document.createElement("swivel-chat-widget");
   widget.setAttribute("id", "swivel-chat-widget");
@@ -45,7 +45,7 @@ function _mountWidget(token, system, entityKey, entityReferenceKey) {
   );
   widget.setAttribute("injectCss", widgetContainer.id);
   const shadowRootStyle = document.createElement("style");
-  shadowRootStyle.innerHTML = "";
+  shadowRootStyle.innerHTML = overrideCss; // @todo INJECT CSS
   widgetContainer.appendChild(widget);
   if (widget.shadowRoot) {
     console.log(shadowRootStyle);
@@ -66,10 +66,10 @@ import { setup, unsubscribe } from "./notification";
  * @param {string} passwordHash SHA3-256 Hashed password
  * @param {string} systemMode 'uat' or 'prod'
  */
-export async function createWidget({ username, password, system, entityKey, entityReferenceKey }) {
-  const token = await _login(username, password)
+export async function createWidget({ username, password, system, entityKey, entityReferenceKey, overrideCss, expireTime }) {
+  const token = await _login(username, password, expireTime)
   localStorage.setItem('360-accessToken', token)
-  _mountWidget(token, system, entityKey, entityReferenceKey)
+  _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss)
   await setup(token, system)
 }
 

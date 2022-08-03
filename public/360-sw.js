@@ -8,6 +8,7 @@ const chatUrlMap = {
   'prod': 'https://chat.swivelsoftware.asia/v2/',
   '360dev': 'https://chat-uat.swivelsoftware.asia/dev-v2/'
 }
+const cacheName = 'swivel360_cache'
 
 self.onmessage = (msg) => {
   token = msg.data.token
@@ -24,16 +25,39 @@ self.addEventListener('push', e => {
     data: payload.data,
   })
 })
-self.addEventListener('notificationclick', (event) => {
 
-  
+
+self.addEventListener('notificationclick', (event) => {
   const datab = { url: `${self.registration.scope}?open=chat&primaryKey=${event.notification.data.chatroomId}` }
   clients.openWindow(datab.url)
   event.notification.close()
   // event.waitUntil(openWindow(event))
-
-
 })
+
+// Cache the chat widget
+// self.addEventListener('fetch', function (event) {
+//   if (event.request.method === 'GET' && event.request.destination==='script') {
+//     event.respondWith(
+//       caches.open(cacheName).then((cache) => {
+//         return cache.match(event.request.url)
+//           .then(function (cachedResponse) {
+//             if (cachedResponse) {
+//               return cachedResponse;
+//             }
+
+//             // Otherwise, hit the network
+//             return fetch(event.request).then((fetchedResponse) => {
+//               // Add the network response to the cache for later visits
+//               cache.put(event.request, fetchedResponse.clone());
+
+//               // Return the network response
+//               return fetchedResponse;
+//             });
+//           })
+//       })
+//     );
+//   }
+// });
 
 async function fetchUrl(event) {
   clients

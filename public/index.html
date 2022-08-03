@@ -30,7 +30,23 @@
       password: "hash",
       system: "360uat",
       entityKey: "DEV",
-      entityReferenceKey: "Development Key"
+      entityReferenceKey: "Development Key",
+      expireTime: "1h", // @todo expire time (do with auth service)
+      overrideCss: `
+  .chatroom-btn-title
+  {
+    font-size: 14px;
+  }
+  .v-input__append-inner {
+    padding-top: 6px;
+  }
+  .title-div {
+    font-size: 1rem;
+  }
+  .chatroom-btn {
+    padding-left: 5px;
+    padding-right: 5px;
+  }`,
     });
 
     function stopNotification() {
