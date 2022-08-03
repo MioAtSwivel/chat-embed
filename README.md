@@ -9,8 +9,6 @@ This build file when included through `<script>` tags, exposes itself as `ChatWi
 - `createWidget(username: string, password: string, systemMode: '360uat'|'360dev'|[other valid system code])` - Logs in and create the widget
 - `stopNotification()` - Call on logout to stop notifications from chat service
 
-self.registration.scope.slice(0, -1)
-
 
 ## Installation
 
