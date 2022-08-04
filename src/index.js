@@ -2,6 +2,7 @@ async function _login(username, passwordHash) {
   const response = await fetch('https://auth.swivelsoftware.asia/auth/local/login', {
     method: 'POST',
     headers: {
+      'selected-partygroup': '', // add for selected customer
       'x-system': '360uat',
       'Content-Type': 'application/json'
     },
@@ -53,15 +54,30 @@ function _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss,
   widget.setAttribute(
     "propdata",
     JSON.stringify({
-      full: false,
-      button: true,
-      right: false,
+
       system: (['360uat', '360dev'].includes(system)) ? "360uat" : system,
-      entityType: "customer",
+      entityType: "customer", // booking, shipment
       entityKey: entityKey, // DEV
       entityReferenceKey: entityReferenceKey, // Development Team
       hasPublicChatroom: true,
       extraChatrooms: [],
+      /*
+        // General Chat
+
+        // load by api/person/default
+        entityType: Customer
+        entityKey: customer code
+        entityReferenceKey: customer company name
+
+      // Transational Chat
+
+       entityType: table name // booking, shipment, po
+       entitykey: primary key of table, unique DB
+       entityReferenceKey: display of record, house#
+       */
+      full: false,
+      button: true,
+      right: false,
       maxShowChatroom: 6,
       leftOffset: 0,
       rightOffset: 0,
