@@ -1,11 +1,12 @@
-async function _login(username, passwordHash) {
+async function _login(username, passwordHash, expireTime, entityKey) {
   const response = await fetch('https://auth.swivelsoftware.asia/auth/local/login', {
     method: 'POST',
     headers: {
+      'selected-partygroup': entityKey || '',
       'x-system': '360uat',
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ username, password: passwordHash, rememberMe: false })
+    body: JSON.stringify({ username, password: passwordHash, rememberMe: false, expiry: expireTime })
   });
   const data = await response.json();
   return data['accessToken']
@@ -27,14 +28,30 @@ function _loadScript(widgetSrc) {
   head.appendChild(script);
 }
 
-function _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss, widgetSrc) {
+async function _mountWidget({token, system, entityType, entityKey, entityReferenceKey, overrideCss, widgetSrc, full, button, right}) {
   // include the chat widget as specified
-
   try {
     _loadScript(widgetSrc)
   } catch (e) {
     console.error(e)
     return
+  }
+
+  // Handle missing values (entity type/ key/ reference key)
+  if (!entityType) { entityType = 'customer' }
+  if (!entityKey || !entityReferenceKey) {
+    const response = await fetch('https://auth.swivelsoftware.asia/api/person/default', {
+      method: 'GET',
+      headers: {
+        'selected-partygroup': '',
+        'x-system': '360uat',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await response.json();
+    entityKey = data['selectedPartyGroup']['code']
+    entityReferenceKey = data['selectedPartyGroup']['name']
   }
 
   const widgetContainer = document.getElementById("chat-container"); // div id
@@ -53,11 +70,11 @@ function _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss,
   widget.setAttribute(
     "propdata",
     JSON.stringify({
-      full: false,
-      button: true,
-      right: false,
+      full: full,
+      button: button,
+      right: right,
       system: (['360uat', '360dev'].includes(system)) ? "360uat" : system,
-      entityType: "customer",
+      entityType: entityType,
       entityKey: entityKey, // DEV
       entityReferenceKey: entityReferenceKey, // Development Team
       hasPublicChatroom: true,
@@ -91,10 +108,10 @@ import { setup, unsubscribe } from "./notification";
  * @param {string} passwordHash SHA3-256 Hashed password
  * @param {string} systemMode 'uat' or 'prod'
  */
-export async function createWidget({ username, password, system, entityKey, entityReferenceKey, overrideCss, expireTime, widgetSrc }) {
-  const token = await _login(username, password, expireTime)
+export async function createWidget({ username, password, system, entityType, entityKey, entityReferenceKey, overrideCss, expireTime, widgetSrc, full, button, right }) {
+  const token = await _login(username, password, expireTime, entityKey)
   localStorage.setItem('360-accessToken', token)
-  _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss, widgetSrc)
+  await _mountWidget({token, system, entityType, entityKey, entityReferenceKey, overrideCss, widgetSrc, full, button, right})
   await setup(token, system)
 }
 
