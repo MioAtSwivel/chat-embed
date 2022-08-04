@@ -20,77 +20,64 @@ Prepare/find the following files from the repository:
 - `index.html` from `public/` folder (for reference usage)
 
 ### Steps
-Place a div with id `chat-container` into where you want it to be with
-```html
-<div id="chat-container"></div>
-```
 
-Include a copy of `swivel-chat-widget-min.js` and helper script at the end of html page with
-  ```html
-  <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script> <!-- UAT WIDGET-->
-  <!-- <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/dev-v2/widgets/swivel-chat-widget.js"></script> --> <!-- DEV WIDGET -->
-  <!-- <script type="text/javascript" src="https://chat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script> --> <!-- PRODUCTION WIDGET-->
-  <script type="text/javascript" src="./create-chat-widget.js"></script>
-  <!-- Include additional sha.js if plaintext password is used -->
-  <script type="text/javascript" src="./sha.js"></script>
-  ```
+1. Locate the file you want to embed chat widget in
 
-Create additional `<script>` block and run the following
-```html
-<script>
-/**
- * Main widget create function
- * @param {string} username - Username (email) of the user
- * @param {string} passwordHash - SHA3-256 Hashed password
- * @param {string} system - magic value 'erp' | 'erpuat' | '360uat' | '360dev' | [other valid system code]
- */
-    ChatWidget.createWidget({
+2. Place a div with id `chat-container` into where you want it to be with
+    ```html
+    <div id="chat-container"></div>
+    ```
+
+3. Include a copy of `create-chat-widget.js` (the widget mounting script) at the end of html page as following:
+    ```html
+    <script type="text/javascript" src="./create-chat-widget.js"></script>
+    <!-- Include additional sha.js if plaintext password is used -->
+    <script type="text/javascript" src="./sha.js"></script>
+    ```
+
+4. Create additional `<script>` block as following, and change the parameters accordingly:
+
+    ```html
+    <script>
+    /**
+     * Main widget create function
+     * @param {string} username - Username (email) of the user
+     * @param {string} passwordHash - SHA3-256 Hashed password
+     * @param {string} system - magic value 'erp' | 'erpuat' | '360uat' | '360dev' | [other valid system code]
+     */
+     ChatWidget.createWidget({
       username: "mio9+chat109@swivelsoftware.com",
-      password: "hash",
-      system: "360uat",
-      entityKey: "DEV",
-      entityReferenceKey: "Development Key"
-    })
-</script>
-```
+      password: "hash", // SHA3-256 hash of the user's plaintext password
+      system: "360uat", // System where the user belongs to, either "360", "360uat", "erp" or "erpuat"
+      entityKey: "DEV", 
+      entityReferenceKey: "Development Key", 
+      expireTime: "1h", // 1 hour as specified in ERP
+      widgetSrc: 'uat', // Which version of chat to use, either "dev", "uat" or "prod"
+      overrideCss: `
+        .chatroom-btn-title
+        {
+          font-size: 14px;
+        }
+        .v-input__append-inner {
+          padding-top: 6px;
+        }
+        .title-div {
+          font-size: 1rem;
+        }
+        .chatroom-btn {
+          padding-left: 5px;
+          padding-right: 5px;
+        }` // Custom style you want to apply to chat
+    });
+    </script>
+    ```
 ⚠ Place `360-sw.js` into root directory of the site url for notification
 
 
 
 ## Usage Example
-```html
-<!DOCTYPE html>
-<html lang="en">
+Preview live server can be started with `yarn dev`. Files inside the `public/` folder is served on the live preview server
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+For detailed running example, please reference the [index.html](https://github.com/MioAtSwivel/chat-embed/blob/main/public/index.html) and match the use case in your application. 
 
-  <body>
-    <!-- Embed chat widget button -->
-    <p>Some other elements</p>
-    <div id="chat-container"></div> 
-    <p>Some more other elements</p>
-  </body>
-
-  <!-- Include widget and helper script -->
-  <script type="text/javascript" src="https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js"></script>
-  <script type="text/javascript" src="./create-chat-widget.js"></script>
-
-  <!-- Create the widget -->
-  <script>
-    ChatWidget.createWidget({
-      username: "mio9+chat109@swivelsoftware.com",
-      password: "hash",
-      system: "360uat",
-      entityKey: "DEV",
-      entityReferenceKey: "Development Key"
-    }) 
-  </script>
-</html>
-```
-
-For detailed running example, please reference the `index.html` file inside `public/` and match the use case in your application
+Have fun getting chat+ to work wherever you want 👋 🎉
