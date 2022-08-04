@@ -71,7 +71,11 @@ Prepare/find the following files from the repository:
     });
     </script>
     ```
-⚠ Place `360-sw.js` into root directory of the site url for notification
+
+### Push Notification server
+
+1. Place `public/360-sw.js` into root directory of the site url for notification
+2. Run `ChatWidget.stopNotification();` any stage in your program to stop the widget from sending push notifications. (e.g. User logs out)
 
 
 
