@@ -11,7 +11,32 @@ async function _login(username, passwordHash) {
   return data['accessToken']
 }
 
-function _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss) {
+function _loadScript(widgetSrc) {
+  const widgetLinks = {
+    'uat': 'https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js',
+    'dev': 'https://chat-uat.swivelsoftware.asia/dev-v2/widgets/swivel-chat-widget.js',
+    'prod': 'https://chat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js'
+  }
+  const head = document.getElementsByTagName('head')[0];
+  let script = document.createElement('script');
+  script.type = 'text/javascript';
+  if (!widgetLinks[widgetSrc]) {
+    throw new Error('Invalid source version of chat widget: ' + widgetSrc);
+  }
+  script.src = widgetLinks[widgetSrc];
+  head.appendChild(script);
+}
+
+function _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss, widgetSrc) {
+  // include the chat widget as specified
+
+  try {
+    _loadScript(widgetSrc)
+  } catch (e) {
+    console.error(e)
+    return
+  }
+
   const widgetContainer = document.getElementById("chat-container"); // div id
   const widget = document.createElement("swivel-chat-widget");
   widget.setAttribute("id", "swivel-chat-widget");
@@ -66,10 +91,10 @@ import { setup, unsubscribe } from "./notification";
  * @param {string} passwordHash SHA3-256 Hashed password
  * @param {string} systemMode 'uat' or 'prod'
  */
-export async function createWidget({ username, password, system, entityKey, entityReferenceKey, overrideCss, expireTime }) {
+export async function createWidget({ username, password, system, entityKey, entityReferenceKey, overrideCss, expireTime, widgetSrc }) {
   const token = await _login(username, password, expireTime)
   localStorage.setItem('360-accessToken', token)
-  _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss)
+  _mountWidget(token, system, entityKey, entityReferenceKey, overrideCss, widgetSrc)
   await setup(token, system)
 }
 
