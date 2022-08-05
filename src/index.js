@@ -16,7 +16,8 @@ function _loadScript(widgetSrc) {
   const widgetLinks = {
     'uat': 'https://chat-uat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js',
     'dev': 'https://chat-uat.swivelsoftware.asia/dev-v2/widgets/swivel-chat-widget.js',
-    'prod': 'https://chat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js'
+    'prod': 'https://chat.swivelsoftware.asia/v2/widgets/swivel-chat-widget.js',
+    'local': './dist/swivel-chat-widget.min.js'
   }
   const head = document.getElementsByTagName('head')[0];
   let script = document.createElement('script');

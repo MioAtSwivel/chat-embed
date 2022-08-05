@@ -28,8 +28,39 @@ self.addEventListener('push', e => {
 
 
 self.addEventListener('notificationclick', (event) => {
-  const datab = { url: `${self.registration.scope}?open=chat&primaryKey=${event.notification.data.chatroomId}` }
+  const datab = { url: `${self.registration.scope}` }
   clients.openWindow(datab.url)
+  event.waitUntil(
+    clients
+      .matchAll({
+        includeUncontrolled: true,
+        type: 'window',
+      })
+      .then(function (clients) {
+        if (clients && clients.length) {
+          console.log('sending message back to the browser')
+          clients[clients.length - 1].postMessage({
+            type: 'CHATROOM_OPEN',
+            roomId: event.notification.data.chatroomId
+          })
+        }
+        // if (clients.openWindow) {
+        //   if (event.notification.data.chatroomType == 'dashboard') {
+        //     return clients.openWindow(
+        //       `/?open=chat&primaryKey=${event.notification.data.chatroomId}`
+        //     )
+        //   } else {
+        //     for (var i = 0; i < clientList.length; i++) {
+        //       var client = clientList[i]
+        //       if (client.url == '/chat-plus' && 'focus' in client) return client.focus()
+        //     }
+        //     return clients.openWindow(
+        //       `/chat-plus/?open=chat&primaryKey=${event.notification.data.chatroomId}`
+        //     )
+        //   }
+        // }
+      })
+  )
   event.notification.close()
   // event.waitUntil(openWindow(event))
 })

@@ -16,7 +16,7 @@ async function registerServiceWorker(jwtToken, systemMode) {
   if ('serviceWorker' in navigator) {
     // デフォルトのスコープを使用して、
     // サイトのルートでホストされるサービスワーカーを登録します。
-    const registration = await navigator.serviceWorker.register('/360-sw.js')
+    const registration = await navigator.serviceWorker.register('/swivel-sw.js')
     navigator.serviceWorker.ready.then(reg => {
       reg.active.postMessage({token: jwtToken, system: systemMode})
     })
