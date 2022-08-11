@@ -7,5 +7,5 @@ app.use('/dist', express.static('dist'));
 app.use(express.static('public'))
 
 app.listen(port, () => {
-  console.log('Preview live server started on port ' + port)
+  console.log(`Preview live server started on http://localhost:${port}/`);
 })
