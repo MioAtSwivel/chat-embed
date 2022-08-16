@@ -109,8 +109,10 @@ import { setup, unsubscribe } from "./notification";
  * @param {string} passwordHash SHA3-256 Hashed password
  * @param {string} systemMode 'uat' or 'prod'
  */
-export async function createWidget({ username, password, system, entityType, entityKey, entityReferenceKey, overrideCss, expireTime, widgetSrc, full, button, right }) {
-  const token = await _login(username, password, expireTime, entityKey)
+export async function createWidget({ token, username, password, system, entityType, entityKey, entityReferenceKey, overrideCss, expireTime, widgetSrc, full, button, right }) {
+  if (!token){
+    token = await _login(username, password, expireTime, entityKey)
+  }
   localStorage.setItem('360-accessToken', token)
   await _mountWidget({token, system, entityType, entityKey, entityReferenceKey, overrideCss, widgetSrc, full, button, right})
   await setup(token, system)
