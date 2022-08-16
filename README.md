@@ -49,7 +49,7 @@ Prepare/find the following files from the repository:
       username: "mio9+chat109@swivelsoftware.com",
       password: "hash", // SHA3-256 hash of the user's plaintext password
       system: "360uat", // System where the user belongs to, either "360", "360uat", "erp" or "erpuat"
-      entityType: "customer" // Default to 'customer' if not provided
+      entityType: "customer", // Default to 'customer' if not provided
       entityKey: "DEV", // Default to first party group if not provided
       entityReferenceKey: "Development Key",  // Default to first party group if not provided
       expireTime: "1h", // 1 hour as specified in ERP
