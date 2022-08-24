@@ -44,22 +44,22 @@ self.addEventListener('notificationclick', (event) => {
             roomId: event.notification.data.chatroomId
           })
         }
-        // if (clients.openWindow) {
-        //   if (event.notification.data.chatroomType == 'dashboard') {
-        //     return clients.openWindow(
-        //       `/?open=chat&primaryKey=${event.notification.data.chatroomId}`
-        //     )
-        //   } else {
-        //     for (var i = 0; i < clientList.length; i++) {
-        //       var client = clientList[i]
-        //       if (client.url == '/chat-plus' && 'focus' in client) return client.focus()
-        //     }
-        //     return clients.openWindow(
-        //       `/chat-plus/?open=chat&primaryKey=${event.notification.data.chatroomId}`
-        //     )
+        if (clients.openWindow) {
+          // if (event.notification.data.chatroomType == 'dashboard') {
+          //   return clients.openWindow(
+          //     `/?open=chat&primaryKey=${event.notification.data.chatroomId}`
+          //   )
+          // } else {
+          //   for (var i = 0; i < clientList.length; i++) {
+          //     var client = clientList[i]
+          //     if (client.url == '/chat-plus' && 'focus' in client) return client.focus()
+          //   }
+            return clients.openWindow(
+              `/`
+            )
         //   }
         // }
-      })
+      }})
   )
   event.notification.close()
   // event.waitUntil(openWindow(event))
