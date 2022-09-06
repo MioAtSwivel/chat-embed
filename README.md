@@ -68,7 +68,10 @@ Prepare/find the following files from the repository:
         .chatroom-btn {
           padding-left: 5px;
           padding-right: 5px;
-        }` // Custom style you want to apply to chat
+        }`, // Custom style you want to apply to chat
+      full: false,
+      button: true,
+      right: false,
     });
     </script>
     ```

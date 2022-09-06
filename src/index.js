@@ -71,9 +71,9 @@ async function _mountWidget({token, system, entityType, entityKey, entityReferen
   widget.setAttribute(
     "propdata",
     JSON.stringify({
-      full: full,
-      button: button,
-      right: right,
+      full: full ? full : false,
+      button: button ? button : true,
+      right: right ? right : false,
       system: (['360uat', '360dev'].includes(system)) ? "360uat" : system,
       entityType: entityType,
       entityKey: entityKey, // DEV
