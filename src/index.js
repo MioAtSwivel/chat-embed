@@ -1,9 +1,9 @@
-async function _login(username, passwordHash, expireTime, entityKey) {
+async function _login(username, passwordHash, expireTime, entityKey, system) {
   const response = await fetch('https://auth.swivelsoftware.asia/auth/local/login', {
     method: 'POST',
     headers: {
       'selected-partygroup': entityKey || '',
-      'x-system': '360uat',
+      'x-system': system,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ username, password: passwordHash, rememberMe: false, expiry: expireTime })
@@ -111,7 +111,7 @@ import { setup, unsubscribe } from "./notification";
  */
 export async function createWidget({ token, username, password, system, entityType, entityKey, entityReferenceKey, overrideCss, expireTime, widgetSrc, full, button, right }) {
   if (!token){
-    token = await _login(username, password, expireTime, entityKey)
+    token = await _login(username, password, expireTime, entityKey, system)
   }
   localStorage.setItem('360-accessToken', token)
   await _mountWidget({token, system, entityType, entityKey, entityReferenceKey, overrideCss, widgetSrc, full, button, right})
