@@ -45,7 +45,7 @@ async function _mountWidget({token, system, entityType, entityKey, entityReferen
       method: 'GET',
       headers: {
         'selected-partygroup': '',
-        'x-system': '360uat',
+        'x-system': system,
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       }
@@ -66,7 +66,7 @@ async function _mountWidget({token, system, entityType, entityKey, entityReferen
   ); // token
   widget.setAttribute("system", (['360uat', '360dev'].includes(system)) ? "360uat" : system); // system
   // if (uat) {
-  widget.setAttribute("uat", "true");
+  widget.setAttribute("uat", system=='360uat' ? true : false);
   // }
   widget.setAttribute(
     "propdata",
